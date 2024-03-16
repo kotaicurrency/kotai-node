@@ -1,5 +1,5 @@
-ARG ENV_REPOSITORY=nanocurrency/nano-env
+ARG ENV_REPOSITORY=kotaicurrency/kotai-env
 FROM ${ENV_REPOSITORY}:base
 
-ARG REPOSITORY=nanocurrency/nano-node
+ARG REPOSITORY=kotaicurrency/kotai-node
 LABEL org.opencontainers.image.source https://github.com/$REPOSITORY

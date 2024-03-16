@@ -13,6 +13,7 @@ if (${env:artifact} -eq 1) {
         $env:NETWORK_CFG = "live"
     }
     $env:NANO_TEST = "-DNANO_TEST=OFF"
+
     if ([string]::IsNullOrEmpty(${env:VERSION_PRE_RELEASE})) {
         $env:CI_VERSION_PRE_RELEASE = "OFF"
     } else {

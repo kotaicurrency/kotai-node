@@ -14,6 +14,7 @@ jobs:
           submodules: "recursive"
       - name: Fetch Deps
         run: ci/actions/linux/install_deps.sh
+
       - name: Deploy Docker (ghcr.io)
         run: ci/actions/linux/ghcr-deploy-env.sh
         env:
@@ -22,7 +23,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       - name: Check if secrets.DOCKER_PASSWORD exists
         run: echo "DOCKER_PASSWORD_EXISTS=${{ secrets.DOCKER_PASSWORD != '' }}" >> $GITHUB_ENV  
-      - name: Deploy Docker (nanocurrency/nano-env)
+      - name: Deploy Docker (kotaicurrency/kotai-env)
         if: env.DOCKER_PASSWORD_EXISTS == 'true'
         run: ci/actions/linux/docker-deploy-env.sh
         env:

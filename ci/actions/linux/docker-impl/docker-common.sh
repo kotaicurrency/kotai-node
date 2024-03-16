@@ -4,8 +4,8 @@ set -a
 
 scripts="$PWD/ci"
 CI_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-DOCKER_REGISTRY="${DOCKER_REGISTRY:-nanocurrency}"
-DOCKER_USER="${DOCKER_USER:-nanoreleaseteam}"
+DOCKER_REGISTRY="${DOCKER_REGISTRY:-kotaicurrency}"
+DOCKER_USER="${DOCKER_USER:-kotaicurrency}"
 tags=()
 
 if [ -n "$CI_TAG" ]; then
@@ -14,8 +14,6 @@ elif [ -n "$CI_BRANCH" ]; then
     CI_TAG=$CI_BRANCH
     tags+=("$CI_BRANCH")
 fi
-
-
 if [[ "$NETWORK" = "LIVE" ]]; then
     echo "Live"
     network_tag_suffix=''
@@ -30,8 +28,8 @@ elif [[ "$NETWORK" = "TEST" ]]; then
     network="test"
 fi
 
-docker_image_name="${DOCKER_REGISTRY}/nano${network_tag_suffix}"
-ghcr_image_name="ghcr.io/${GITHUB_REPOSITORY}/nano${network_tag_suffix}"
+docker_image_name="${DOCKER_REGISTRY}/kotai${network_tag_suffix}"
+ghcr_image_name="ghcr.io/${GITHUB_REPOSITORY}/kotai${network_tag_suffix}"
 
 docker_build()
 {
@@ -94,9 +92,9 @@ docker_deploy_env()
 {
     docker_login "$DOCKER_USER" "$DOCKER_PASSWORD" 
     local images=(
-        "${DOCKER_REGISTRY}/nano-env:base"
-        "${DOCKER_REGISTRY}/nano-env:gcc"
-        "${DOCKER_REGISTRY}/nano-env:clang"
+        "${DOCKER_REGISTRY}/kotai-env:base"
+        "${DOCKER_REGISTRY}/kotai-env:gcc"
+        "${DOCKER_REGISTRY}/kotai-env:clang"
     )
     deploy_env_images "${images[@]}"
 }
@@ -105,10 +103,10 @@ ghcr_deploy_env()
 {
     docker_login "$DOCKER_USER" "$DOCKER_PASSWORD" "ghcr.io"
     local images=(
-        "${DOCKER_REGISTRY}/${GITHUB_REPOSITORY}/nano-env:base"
-        "${DOCKER_REGISTRY}/${GITHUB_REPOSITORY}/nano-env:gcc"
-        "${DOCKER_REGISTRY}/${GITHUB_REPOSITORY}/nano-env:clang"
-        "${DOCKER_REGISTRY}/${GITHUB_REPOSITORY}/nano-env:rhel"
+        "${DOCKER_REGISTRY}/${GITHUB_REPOSITORY}/kotai-env:base"
+        "${DOCKER_REGISTRY}/${GITHUB_REPOSITORY}/kotai-env:gcc"
+        "${DOCKER_REGISTRY}/${GITHUB_REPOSITORY}/kotai-env:clang"
+        "${DOCKER_REGISTRY}/${GITHUB_REPOSITORY}/kotai-env:rhel"
     )
     deploy_env_images "${images[@]}"
 }
@@ -141,7 +139,7 @@ deploy_env_images()
         push_docker_image "$image"
     done
 
-    echo "Deployed nano-env"
+    echo "Deployed kotai-env"
 }
 
 deploy_tags()

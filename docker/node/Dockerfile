@@ -25,8 +25,8 @@ RUN echo ${NANO_NETWORK} >/etc/nano-network
 
 FROM ubuntu:22.04
 
-RUN groupadd --gid 1000 nanocurrency && \
-    useradd --uid 1000 --gid nanocurrency --shell /bin/bash --create-home nanocurrency
+RUN groupadd --gid 1000 kotaicurrency && \
+    useradd --uid 1000 --gid kotaicurrency --shell /bin/bash --create-home kotaicurrency
 
 COPY --from=builder /tmp/src/build/nano_node /usr/bin
 COPY --from=builder /tmp/src/build/nano_rpc /usr/bin
@@ -46,5 +46,5 @@ ENV PATH="${PATH}:/usr/bin"
 ENTRYPOINT ["/usr/bin/entry.sh"]
 CMD ["nano_node", "daemon", "-l"]
 
-ARG REPOSITORY=nanocurrency/nano-node
+ARG REPOSITORY=kotaicurrency/kotai-node
 LABEL org.opencontainers.image.source https://github.com/$REPOSITORY
